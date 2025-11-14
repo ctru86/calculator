@@ -1,0 +1,36 @@
+#calculator {
+    display: flex; 
+    gap: 10px;
+    width: fit-content;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row button {
+  width: 60px;
+  height: 60px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#calculate {
+  display: flex;
+}
+
+#calculate button {
+  width: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
