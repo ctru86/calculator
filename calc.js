@@ -38,3 +38,34 @@ function calculate(a, operator, b) {
 
 calculate(firstNum, operator, secondNum)
 
+const display = document.getElementById('display');
+const buttons = document.querySelectorAll('button');
+let displayValue = '0';
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        const buttonText = this.textContent;
+        if (buttonText === '=') {
+            calculateResult();
+        } else if (buttonText === '⌫') {
+            displayValue = displayValue.slice(0, -1) || '0';
+        } else {
+            if (displayValue === '0') {
+                displayValue = buttonText;
+            } else {
+                displayValue += buttonText;
+            }
+        }
+        display.textContent = displayValue;
+    });
+});
+
+function calculateResult() {
+    try {
+        displayValue = eval(displayValue).toString();
+        display.textContent = displayValue;
+    } catch (error) {
+        display.textContent = 'Error';
+        displayValue = '0';
+    }
+}
+
