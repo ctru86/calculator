@@ -41,7 +41,7 @@ const equalsButton = document.querySelector("#equals");
 numberButton.forEach(button => {
   button.addEventListener('click', () => {
     if (operator === "" && secondNumber === "" && firstNumber !== "") {
-        firstNumber = button.textContent;
+        firstNumber += button.textContent;
         operator = "";
         secondNumber = "";
         display.textContent = firstNumber;
