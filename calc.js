@@ -40,13 +40,20 @@ const equalsButton = document.querySelector("#equals");
 
 numberButton.forEach(button => {
   button.addEventListener('click', () => {
-    if (operator === "") {
+    if (operator === "" && secondNumber === "" && firstNumber !== "") {
+        firstNumber = button.textContent;
+        operator = "";
+        secondNumber = "";
+        display.textContent = firstNumber;
+    }
+    else if (operator === "") {
         firstNumber += button.textContent;
+        display.textContent = firstNumber + operator + secondNumber;
     }
     else {
-        secondNumber += button.textContent; 
+        secondNumber += button.textContent;
+        display.textContent = firstNumber + operator + secondNumber; 
     }
-    display.textContent = firstNumber + operator + secondNumber;
   });
 });
 
