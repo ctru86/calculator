@@ -74,10 +74,16 @@ deleteButton.addEventListener('click', () => {
   });
 
 equalsButton.addEventListener('click', () => {
-    let total = calculate(firstNumber, operator, secondNumber);
-    display.textContent = total; 
-    firstNumber = total;
-    operator = ""; 
-    secondNumber = "";  
-  });
-
+    if (secondNumber === "") {
+        firstNumber = "";
+        operator = "";
+        secondNumber = "";
+        display.textContent = "";
+    } else {
+        let total = calculate(firstNumber, operator, secondNumber);
+        display.textContent = total; 
+        firstNumber = String(total);
+        operator = "";
+        secondNumber = "";
+    }
+});
