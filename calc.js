@@ -1,80 +1,83 @@
 function add(a,b) {
   return a + b;
 };
-
 function subtract (a, b) {
   return a - b;
 };
-
 function multiply (a, b) {
   return a * b;  
 };
-
 function divide (a, b) {
   return a / b; 
 };
 
-
-const calculate = function(a, operator, b) {
-    console.log(a)
-    console.log(operator)
-    console.log(b)
+function calculate(a, operator, b) {
+    a = Number(a); 
+    b = Number(b); 
     if (operator === "+") {
-        return("= " + add(a,b));
+        return(add(a,b));
     }
     if (operator === "-") {
-        return("= " + subtract(a,b));
+        return(subtract(a,b));
     }
     if (operator === "*") {
-        return("= " + multiply(a,b));
+        return(multiply(a,b));
     }
     if (operator === "/") {
-        return("= " + divide(a,b));
+        return(divide(a,b));
     }
 }
 
-const display = document.getElementById('display');
-const buttons = document.querySelectorAll('button');
-let displayValue = '0';
-buttons.forEach(button => {
-    button.addEventListener('click', function() {
-        const buttonText = this.textContent;
-         if (buttonText === '=') {
-            
-            const operators = ['+', '-', '*', '/'];
-            let operator = '';
-            let operatorIndex = -1;
-            
-            for (let op of operators) {
-                operatorIndex = displayValue.indexOf(op);
-                if (operatorIndex > 0) {                      operator = op;
-                    break;
-                }
-            }
-            
-            if (operator && operatorIndex > 0) {
-                
-                const num1 = parseFloat(displayValue.substring(0, operatorIndex));
-                const num2 = parseFloat(displayValue.substring(operatorIndex + 1));
-                
-               
-                const result = calculate(num1, operator, num2);
-                displayValue = result.toString();
-            }
-            
-        } else if (buttonText === '⌫') {
-            displayValue = displayValue.slice(0, -1) || '0';
-        } else {
-            if (displayValue === '0') {
-                displayValue = buttonText;
-            } else {
-                displayValue += buttonText;
-            }
-        }
-        
-        display.textContent = displayValue;
-    });
+let firstNumber = ""; 
+let operator = ""; 
+let secondNumber = ""; 
+
+const display = document.querySelector("#display");
+const numberButton = document.querySelectorAll(".number");
+const opsButton = document.querySelectorAll(".operator");
+const deleteButton = document.querySelector("#delete");
+const equalsButton = document.querySelector("#equals"); 
+
+numberButton.forEach(button => {
+  button.addEventListener('click', () => {
+    if (operator === "") {
+        firstNumber += button.textContent;
+    }
+    else {
+        secondNumber += button.textContent; 
+    }
+    display.textContent = firstNumber + operator + secondNumber;
+  });
 });
 
+opsButton.forEach(button => {
+  button.addEventListener('click', () => {
+    if (operator === "") {
+    operator = button.textContent;
+    display.textContent = firstNumber + operator + secondNumber;
+    }
+    else {
+    let total = calculate(firstNumber, operator, secondNumber);
+    firstNumber = String(total); 
+    secondNumber = ""; 
+    operator = button.textContent;
+    display.textContent = firstNumber + operator + secondNumber
+    }
+  });
+});
 
+deleteButton.addEventListener('click', () => {
+    firstNumber = "";    
+    operator = "";
+    secondNumber = "";
+    display.textContent = "";
+  });
+
+equalsButton.addEventListener('click', () => {
+    let total = calculate(firstNumber, operator, secondNumber);
+    display.textContent = total; 
+    firstNumber = total;
+    operator = ""; 
+    secondNumber = "";  
+  });
 
